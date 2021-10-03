@@ -1,56 +1,34 @@
 """A video playlist class."""
 
 
-from array import array
-
-
 class Playlist:
-    def __init__(self, playListName):
-        self._name = playListName
-        self._videos = []
     """A class used to represent a Playlist."""
+    def __init__(self,playlist_name: str):
+        self._playlist_name = playlist_name
+        self._videos = dict()#Stores dictonary video_id:video Object
 
     @property
     def name(self) -> str:
-        """Returns the naem of the platlist."""
-        return self._name
-
-    @property
-    def videos(self) -> array:
-        """Returns the array of a video."""
-        return self._videos
+        """Returns the title of a playlist."""
+        return self._playlist_name
     
-    def addVideo(self,video):
-        """
-            Adds video the playlist
-            Args:
-                video: The video object
-        """
-        self._videos.append(video)
+    @property
+    def get_all_videos(self) -> dict:
+        """Returns the dictonary of the videos."""
+        return self._videos
 
-    def removeVideo(self,video):
+    def get_video(self,video_id):
         """
-            Remove video from video list
-            Args:
-                video: The video object
+            Returns the video object
+            None if video does not exist
         """
-        self._videos.remove(video)
-
-    def getVideo(self,video_id):
+        return self._videos.get(video_id)
+    
+    def add_video(self,video_id,video):
         """
-            Fetches the video object
-            Args:
-                video_id: The id of the video object
+            Adds video to playlist 
             Returns:
-                video: The video object, None if not found
+                True if video has been added
         """
-        for video in self._videos:
-            if video.video_id== video_id:
-                return video
-        return None
-
-    def clear(self):
-        """
-            Clears playlist
-        """
-        self._videos = []
+        self._videos[video_id] = video
+        return True
